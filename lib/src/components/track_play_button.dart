@@ -35,7 +35,7 @@ class TrackPlayButton extends ConsumerWidget {
           },
           icon: Icon(
             isCurrentTrack && isPlaying ? Icons.pause : Icons.play_arrow,
-            size: 38,
+            size: 70,
           ),
         );
       },

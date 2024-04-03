@@ -1,8 +1,9 @@
-import 'package:flaudio/src/components/playback_bottom_bar.dart';
-import 'package:flaudio/src/screens/track_list_screen.dart';
+//import 'package:flaudio/src/components/playback_bottom_bar.dart';
+import 'package:flaudio/src/screens/track_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:flaudio/src/providers/track_list_provider.dart';
 
 Future<void> main() async {
   await JustAudioBackground.init(
@@ -27,13 +28,27 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TrackListScreen(),
+      home: Consumer(
+        builder: (context, ref, _) {
+          final trackList = ref.watch(trackListProvider);
+          if (trackList.isNotEmpty) {
+            final track = trackList.first;
+            return TrackDetailScreen(track: track); // Paso del objeto Track al TrackDetailScreen
+          } else {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
+      ),
       builder: (context, child) {
         return Material(
           child: Column(
             children: [
               Expanded(child: child!),
-              PlaybackBottomBar(),
+              //PlaybackBottomBar(),
             ],
           ),
         );

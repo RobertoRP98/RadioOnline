@@ -1,4 +1,3 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flaudio/src/models/track.dart';
 import 'package:flaudio/src/providers/playback_provider.dart';
 import 'package:flutter/material.dart';
@@ -39,23 +38,7 @@ class TrackProgressBar extends ConsumerWidget {
             ),
           ),
         ),
-        Expanded(
-          child: StreamBuilder<PositionData>(
-              stream: provider.positionDataStream,
-              builder: (context, snapshot) {
-                final positionData = snapshot.data;
-
-                return ProgressBar(
-                  progress: positionData?.position ?? Duration.zero,
-                  buffered: positionData?.buffered ?? Duration.zero,
-                  total: positionData?.duration ?? Duration.zero,
-                  timeLabelTextStyle: Theme.of(context).textTheme.bodySmall,
-                  onSeek: (duration) {
-                    provider.player.seek(duration);
-                  },
-                );
-              }),
-        ),
+        
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: IconButton(
